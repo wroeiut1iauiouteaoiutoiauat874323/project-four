@@ -5,21 +5,21 @@ from sklearn.metrics import classification_report, confusion_matrix
 import pandas as pd
 import numpy as np
 
+
 def naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
     nb = MultinomialNB()
     nb.fit(A_tfid, B)
 
     B_pred = nb.predict(A_tfid)
-    data_clean['Label NB'] = B_pred
+    data_clean["Label NB"] = B_pred
     data_clean = pd.DataFrame(data_clean)
 
     C_pred = nb.predict(C_tfid)
-    data_real['Label NB'] = C_pred
+    data_real["Label NB"] = C_pred
     data_real = pd.DataFrame(data_real)
 
-    data_clean.to_csv('sample_data/the_data_hasil_sentimen_NB.csv', index=False)
-    data_real.to_csv('sample_data/the_data_all_hasil_sentimen_NB.csv', index=False)
-
+    data_clean.to_csv("sample_data/the_data_hasil_sentimen_NB.csv", index=False)
+    data_real.to_csv("sample_data/the_data_all_hasil_sentimen_NB.csv", index=False)
 
     model = MultinomialNB()
     kf = KFold(n_splits=5, shuffle=True, random_state=42)
@@ -29,7 +29,6 @@ def naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
     all_true_labels = np.zeros_like(B)
 
     for train_index, test_index in kf.split(A_tfid):
-
         A_train, A_test = A_tfid[train_index], A_tfid[test_index]
         B_train, B_test = B.iloc[train_index], B.iloc[test_index]
 
@@ -43,23 +42,19 @@ def naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
         all_predictions[test_index] = B_pred
         all_true_labels[test_index] = B_test
 
-        # print(f"Fold {len(fold_accuracies)} Classification Report:")
-        # print(classification_report(B_test, B_pred))
-        # print(f"Fold {len(fold_accuracies)} Confusion Matrix:")
-        # print(confusion_matrix(B_test, B_pred))
-
-    # print("Fold Accuracies:", fold_accuracies)
-    # print("Mean Accuracy:", np.mean(fold_accuracies))
-    # print("Standard Deviation of Accuracy:", np.std(fold_accuracies))
-
     overall_accuracy = accuracy_score(B, all_predictions)
     print("Overall Accuracy with Average Predictions:", overall_accuracy)
 
+    cr = classification_report(all_true_labels, all_predictions)
+    cm = confusion_matrix(all_true_labels, all_predictions)
+
     print("Overall Classification Report:")
-    print(classification_report(all_true_labels, all_predictions))
+    print(cr)
     print("Overall Confusion Matrix:")
-    print(confusion_matrix(all_true_labels, all_predictions))
+    print(cm)
 
-    data_clean['Label NB Average'] = all_predictions
+    data_clean["Label NB Average"] = all_predictions
 
-    data_clean.to_csv('sample_data/the_data_NB_average.csv', index=False)
+    data_clean.to_csv("sample_data/the_data_NB_average.csv", index=False)
+
+    return overall_accuracy, cr, cm

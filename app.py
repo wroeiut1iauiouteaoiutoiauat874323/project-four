@@ -7,16 +7,12 @@ from data_labelling import labelling
 from data_extracting import extracting
 from naive_bayes import naive_bayes
 from svm import svm_classifier
-import joblib
 import matplotlib.pyplot as plt
 import io
 import base64
 import re
 
 app = Flask(__name__)
-
-# Load model Naive Bayes atau SVM
-model = joblib.load('models/naive_bayes.pkl')  # Atau svm.pkl jika menggunakan SVM
 
 @app.route('/', methods=['GET', 'POST'])
 def index():
@@ -28,7 +24,7 @@ def index():
         pattern = r'id=([a-zA-Z0-9\.\_]+)'
         match = re.search(pattern, url)
         if match:
-            app_id = match.group(1)  # Mengambil bagian ID aplikasi (com.jobstreet.jobstreet)
+            app_id = match.group(1)
 
         data_3000 = scrapp_3000_data(app_id)
         data_all = scrapp_all_data(app_id)
@@ -40,10 +36,15 @@ def index():
         hasil_labelling_data_all = labelling(hasil_preprocessing_data_all)
 
         A_tfid, B, C_tfid, A_fit_tfid = extracting(hasil_labelling_data_selected, hasil_labelling_data_all)
-        nb = naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, hasil_labelling_data_selected, hasil_labelling_data_all)
+        overall_accuracy_nb, cr_nb, cm_nb = naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, hasil_labelling_data_selected, hasil_labelling_data_all)
         svm = svm_classifier(A_tfid, B, C_tfid, A_fit_tfid, hasil_labelling_data_selected, hasil_labelling_data_all)
 
-        reviews_data.append({"review": 'cobaa'})
+        reviews_data.append({
+            "review": 'cobaa',
+            "overall_accuracy_nb": overall_accuracy_nb,
+            "cr_nb": cr_nb,
+            "cm_nb": cm_nb
+        })
         # reviews_data.append({"review": review['content'], "sentiment": sentiment})
 
     return render_template('index.html', reviews_data=reviews_data)
