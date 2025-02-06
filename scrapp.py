@@ -8,7 +8,7 @@ def scrapp_3000_data(id_app):
 
     file_path = "sample_data/the_data_selected.csv"
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, sep=",")
     else:
         result, continuation_token = reviews(
             id_app,
@@ -28,7 +28,7 @@ def scrapp_3000_data(id_app):
 def scrapp_all_data(id_app):
     file_path = "sample_data/the_data_all_selected.csv"
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path)
+        df = pd.read_csv(file_path, sep=",")
     else:
         review = reviews_all(
             id_app,

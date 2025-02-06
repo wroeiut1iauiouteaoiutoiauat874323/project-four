@@ -1,19 +1,47 @@
 import re
 import nltk
+import os
+import pandas as pd
 
 def preprocessing(datanya):
-    my_df = datanya[['score', 'content']]
-    my_df = my_df.dropna(subset=['content'])
-    my_df = casefolding(my_df)
-    my_df = filtering(my_df)
-    my_df = tokenizing(my_df)
-    my_df = stemming(my_df)
-    my_df.to_csv('sample_data/the_data_hasiltextpreprocessing.csv', index=False)
+    file_path = 'sample_data/the_data_hasiltextpreprocessing.csv'
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path, sep=",")
+    else:
+        my_df = datanya[['userName', 'score', 'at', 'content']].sort_values(by=['at'], ascending=False)
+        my_df = my_df.dropna(subset=['content'])
+
+        print('casefolding selected data')
+        my_df = casefolding(my_df)
+        print('filtering selected data')
+        my_df = filtering(my_df)
+        print('tokenizing selected data')
+        my_df = tokenizing(my_df)
+        print('stemming selected data')
+        my_df = stemming(my_df)
+        my_df.to_csv(file_path, index=False)
+
+    return df
 
 def preprocessing_all(datanya):
-    my_df = datanya[['userName', 'score', 'at', 'content']].sort_values(by=['at'], ascending=False)
-    my_df = my_df.dropna(subset=['content'])
+    file_path = 'sample_data/the_data_all_hasiltextpreprocessing.csv'
+    if os.path.exists(file_path):
+        df = pd.read_csv(file_path, sep=",")
+    else:
+        my_df = datanya[['userName', 'score', 'at', 'content']].sort_values(by=['at'], ascending=False)
+        my_df = my_df.dropna(subset=['content'])
 
+        print('casefolding selected data')
+        my_df = casefolding(my_df)
+        print('filtering selected data')
+        my_df = filtering(my_df)
+        print('tokenizing selected data')
+        my_df = tokenizing(my_df)
+        print('stemming selected data')
+        my_df = stemming(my_df)
+        my_df.to_csv(file_path, index=False)
+
+    return df
 
 def casefolding(my_df):
     def clean_text(df, text_field, new_text_field_name):
