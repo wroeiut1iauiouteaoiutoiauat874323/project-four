@@ -6,12 +6,12 @@ import pandas as pd
 def preprocessing(datanya):
     file_path = 'sample_data/the_data_hasiltextpreprocessing.csv'
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path, sep=",")
+        my_df = pd.read_csv(file_path, sep=",")
     else:
         my_df = datanya[['userName', 'score', 'at', 'content']].sort_values(by=['at'], ascending=False)
         my_df = my_df.dropna(subset=['content'])
 
-        print('casefolding selected data')
+        print('casefolding   data')
         my_df = casefolding(my_df)
         print('filtering selected data')
         my_df = filtering(my_df)
@@ -21,27 +21,27 @@ def preprocessing(datanya):
         my_df = stemming(my_df)
         my_df.to_csv(file_path, index=False)
 
-    return df
+    return my_df
 
 def preprocessing_all(datanya):
     file_path = 'sample_data/the_data_all_hasiltextpreprocessing.csv'
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path, sep=",")
+        my_df = pd.read_csv(file_path, sep=",")
     else:
         my_df = datanya[['userName', 'score', 'at', 'content']].sort_values(by=['at'], ascending=False)
         my_df = my_df.dropna(subset=['content'])
 
-        print('casefolding selected data')
+        print('casefolding all data')
         my_df = casefolding(my_df)
-        print('filtering selected data')
+        print('filtering all data')
         my_df = filtering(my_df)
-        print('tokenizing selected data')
+        print('tokenizing all data')
         my_df = tokenizing(my_df)
-        print('stemming selected data')
+        print('stemming all data')
         my_df = stemming(my_df)
         my_df.to_csv(file_path, index=False)
 
-    return df
+    return my_df
 
 def casefolding(my_df):
     def clean_text(df, text_field, new_text_field_name):

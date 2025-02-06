@@ -6,6 +6,7 @@ from data_preprocessing import preprocessing, preprocessing_all
 from data_labelling import labelling
 from data_extracting import extracting
 from naive_bayes import naive_bayes
+from svm import svm_classifier
 import joblib
 import matplotlib.pyplot as plt
 import io
@@ -40,6 +41,7 @@ def index():
 
         A_tfid, B, C_tfid, A_fit_tfid = extracting(hasil_labelling_data_selected, hasil_labelling_data_all)
         nb = naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, hasil_labelling_data_selected, hasil_labelling_data_all)
+        svm = svm_classifier(A_tfid, B, C_tfid, A_fit_tfid, hasil_labelling_data_selected, hasil_labelling_data_all)
 
         reviews_data.append({"review": 'cobaa'})
         # reviews_data.append({"review": review['content'], "sentiment": sentiment})
