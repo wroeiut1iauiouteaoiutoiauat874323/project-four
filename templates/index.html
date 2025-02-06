@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sentiment Analysis Web</title>
+</head>
+<body>
+    <h1>Sentiment Analysis Web</h1>
+
+    <form method="POST">
+        <label for="url">Masukkan URL aplikasi:</label>
+        <input type="text" id="url" name="url" required>
+        <button type="submit">Submit</button>
+    </form>
+
+    <h2>Ulasan dan Sentimen</h2>
+    <ul>
+        {% for review in reviews_data %}
+            <li>
+                <strong>Review:</strong> {{ review.review }}<br>
+                <strong>Sentimen:</strong> {{ review.sentiment }}
+            </li>
+        {% endfor %}
+    </ul>
+
+    {% if wordcloud_image %}
+        <h2>Wordcloud</h2>
+        <img src="data:image/png;base64,{{ wordcloud_image }}" alt="Wordcloud">
+    {% endif %}
+</body>
+</html>
