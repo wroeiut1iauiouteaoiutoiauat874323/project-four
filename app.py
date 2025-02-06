@@ -1,7 +1,8 @@
 from flask import Flask, render_template, request
 from google_play_scraper import app
 from wordcloud import WordCloud
-from cek import coba
+from scrapp import scrapp_3000_data, scrapp_all_data
+from data_preprocessing import preprocessing, preprocessing_all
 import joblib
 import matplotlib.pyplot as plt
 import io
@@ -20,17 +21,17 @@ def index():
     if request.method == 'POST':
         # Ambil URL yang dimasukkan pengguna
         url = request.form['url']
-
-        # Regex untuk mengekstrak ID aplikasi
         pattern = r'id=([a-zA-Z0-9\.\_]+)'
-
-        # Mencocokkan pola dan mengambil bagian ID aplikasi
         match = re.search(pattern, url)
-
         if match:
             app_id = match.group(1)  # Mengambil bagian ID aplikasi (com.jobstreet.jobstreet)
 
         cobaa = coba(app_id)
+        data_3000 = scrapp_3000_data(app_id)
+        data_all = scrapp_all_data(app_id)
+        hasil_preprocessing_data_selected = preprocessing(data_3000)
+        hasil_preprocessing_data_all = preprocessing_all(data_all)
+
         reviews_data.append({"review": cobaa})
         # reviews_data.append({"review": review['content'], "sentiment": sentiment})
 
