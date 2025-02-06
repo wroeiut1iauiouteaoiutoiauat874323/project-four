@@ -1,6 +1,7 @@
 from flask import Flask, render_template, request
 from google_play_scraper import app
 from wordcloud import WordCloud
+from cek import coba
 import joblib
 import matplotlib.pyplot as plt
 import io
@@ -26,7 +27,8 @@ def index():
         # # Lakukan analisis sentimen untuk setiap ulasan
         # for review in reviews:
         #     sentiment = predict_sentiment(review['content'])  # Prediksi sentimen
-        reviews_data.append({"review": url})
+        cobaa = coba(url)
+        reviews_data.append({"review": cobaa})
         # reviews_data.append({"review": review['content'], "sentiment": sentiment})
 
         # # Membuat wordcloud dari ulasan
