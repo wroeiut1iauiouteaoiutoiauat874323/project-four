@@ -6,7 +6,7 @@ import joblib
 import matplotlib.pyplot as plt
 import io
 import base64
-
+import re
 
 app = Flask(__name__)
 
@@ -21,45 +21,20 @@ def index():
         # Ambil URL yang dimasukkan pengguna
         url = request.form['url']
 
-        # # Ambil ulasan dari Google Play Store
-        # reviews = get_reviews(url)
+        # Regex untuk mengekstrak ID aplikasi
+        pattern = r'id=([a-zA-Z0-9\.\_]+)'
 
-        # # Lakukan analisis sentimen untuk setiap ulasan
-        # for review in reviews:
-        #     sentiment = predict_sentiment(review['content'])  # Prediksi sentimen
-        cobaa = coba(url)
+        # Mencocokkan pola dan mengambil bagian ID aplikasi
+        match = re.search(pattern, url)
+
+        if match:
+            app_id = match.group(1)  # Mengambil bagian ID aplikasi (com.jobstreet.jobstreet)
+
+        cobaa = coba(app_id)
         reviews_data.append({"review": cobaa})
         # reviews_data.append({"review": review['content'], "sentiment": sentiment})
 
-        # # Membuat wordcloud dari ulasan
-        # wordcloud_image = generate_wordcloud(reviews_data)
-
-        # return render_template('index.html', reviews_data=reviews_data, wordcloud_image=wordcloud_image)
-
     return render_template('index.html', reviews_data=reviews_data)
-
-# # Fungsi untuk mengambil ulasan dari Google Play Store
-# def get_reviews(url):
-#     # Ambil ulasan menggunakan Google Play Scraper
-#     result = app.reviews(url, lang='id', country='id')
-#     return result[0]  # Ambil daftar ulasan
-
-# # Fungsi untuk melakukan prediksi sentimen (positif/negatif)
-# def predict_sentiment(text):
-#     return model.predict([text])[0]
-
-# # Fungsi untuk membuat wordcloud dari teks ulasan
-# def generate_wordcloud(reviews_data):
-#     text = " ".join([review['review'] for review in reviews_data])
-#     wordcloud = WordCloud(width=800, height=400).generate(text)
-
-#     # Menyimpan wordcloud ke dalam buffer image
-#     img = io.BytesIO()
-#     wordcloud.to_image().save(img, format='PNG')
-#     img.seek(0)
-#     img_base64 = base64.b64encode(img.getvalue()).decode('utf-8')
-
-#     return img_base64
 
 if __name__ == '__main__':
     app.run(debug=True)
