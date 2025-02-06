@@ -67,3 +67,5 @@ def svm_classifier(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
 
     # Simpan hasil dengan rata-rata prediksi ke CSV
     data_clean.to_csv('sample_data/the_data_SVM_average.csv', index=False)
+
+    

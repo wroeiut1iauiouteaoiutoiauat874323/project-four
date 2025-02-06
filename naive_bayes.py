@@ -43,18 +43,11 @@ def naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
         all_true_labels[test_index] = B_test
 
     overall_accuracy = accuracy_score(B, all_predictions)
-    print("Overall Accuracy with Average Predictions:", overall_accuracy)
-
     cr = classification_report(all_true_labels, all_predictions)
     cm = confusion_matrix(all_true_labels, all_predictions)
 
-    print("Overall Classification Report:")
-    print(cr)
-    print("Overall Confusion Matrix:")
-    print(cm)
 
     data_clean["Label NB Average"] = all_predictions
-
     data_clean.to_csv("sample_data/the_data_NB_average.csv", index=False)
 
-    return overall_accuracy, cr, cm
+    return overall_accuracy, cr, cm, data_clean
