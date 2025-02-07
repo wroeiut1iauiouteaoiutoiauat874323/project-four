@@ -28,7 +28,7 @@ def scrapp_3000_data(id_app):
 def scrapp_all_data(id_app):
     file_path = "sample_data/the_data_all_selected.csv"
     if os.path.exists(file_path):
-        df = pd.read_csv(file_path, sep=",")
+        df_jobstreet = pd.read_csv(file_path, sep=",")
     else:
         review = reviews_all(
             id_app,
@@ -40,6 +40,6 @@ def scrapp_all_data(id_app):
 
         df_jobstreet = pd.DataFrame(np.array(review), columns=['content'])
         df_jobstreet = df_jobstreet.join(pd.DataFrame(df_jobstreet.pop('content').tolist()))
-        df.to_csv(file_path, index=False)
+        df_jobstreet.to_csv(file_path, index=False)
 
-    return df
+    return df_jobstreet
