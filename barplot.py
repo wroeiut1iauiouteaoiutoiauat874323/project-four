@@ -39,6 +39,9 @@ def barplot_svm(dr):
     value_counts = dr['Label SVM'].value_counts()
     percentages = value_counts / value_counts.sum() * 100
 
+    # Clear the current figure
+    plt.clf()
+
     # Plot bar chart with percentages
     ax = value_counts.plot(kind='bar')
     for i, (count, percentage) in enumerate(zip(value_counts, percentages)):
