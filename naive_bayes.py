@@ -48,7 +48,4 @@ def naive_bayes(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
     cm = confusion_matrix(all_true_labels, all_predictions)
 
 
-    # data_clean["Label NB Average"] = all_predictions
-    # data_clean.to_csv("sample_data/the_data_NB_average.csv", index=False)
-
     return overall_accuracy, cr, cm, data_clean, data_real, jumlah_data_clean_nb

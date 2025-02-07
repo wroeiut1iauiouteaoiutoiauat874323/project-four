@@ -133,25 +133,65 @@
           <div class="card">
             <div class="card-body">
               <h3 class="text-center mt-2 mb-4">Support Vector Machine</h3>
-              <strong>Classification Report:</strong></br> {{ review.overall_accuracy_nb }}<br />
-              <strong>Sentimen:</strong> {{ review.sentiment }}
+              <strong>Classification Report:</strong>
+                <pre>{{ review.cr_svm }}</pre>
+
+                <p class="mt-3"></p>
+
+                <strong>Jumlah Data Training: </strong>{{ review.jumlah_data_clean_svm }}
+
+                <p class="mt-3"></p>
+
+                <strong>Confusion Matrix:</strong>
+                <div class="table-responsive">
+                <table class="table table-bordered">
+                  <thead>
+                  <tr>
+                    <th></th>
+                    <th>Predicted Negative</th>
+                    <th>Predicted Positive</th>
+                  </tr>
+                  </thead>
+                  <tbody>
+                  <tr>
+                    <th>Actual Negative</th>
+                    <td>{{ review.cm_svm[0][0] }}</td>
+                    <td>{{ review.cm_svm[0][1] }}</td>
+                  </tr>
+                  <tr>
+                    <th>Actual Positive</th>
+                    <td>{{ review.cm_svm[1][0] }}</td>
+                    <td>{{ review.cm_svm[1][1] }}</td>
+                  </tr>
+                  </tbody>
+                </table>
+                </div>
+
+                <p class="mt-3"></p>
+
+                <strong>Wordcloud Semua Sentimen:</strong>
+                <img src="{{ url_for('static', filename='wordcloud_semua_svm.png') }}" alt="" class="img-fluid">
+
+                <p class="mt-3"></p>
+
+                <strong>Wordcloud Positif:</strong>
+                <img src="{{ url_for('static', filename='wordcloud_positif_svm.png') }}" alt="" class="img-fluid">
+
+                <p class="mt-3"></p>
+
+                <strong>Wordcloud Negatif:</strong>
+                <img src="{{ url_for('static', filename='wordcloud_negatif_svm.png') }}" alt="" class="img-fluid">
+
+                <p class="mt-3"></p>
+
+                <strong>Grafik Pertumbuhan:</strong>
+                <img src="{{ url_for('static', filename='grafik_svm.png') }}" alt="" class="img-fluid">
             </div>
           </div>
         </div>
 
       </div>
     </div>
-    {% endfor %} {% if wordcloud_image %}
-    <div class="container mt-5">
-      <h2 class="text-center">Wordcloud</h2>
-      <div class="text-center">
-        <img
-          src="data:image/png;base64,{{ wordcloud_image }}"
-          alt="Wordcloud"
-          class="img-fluid"
-        />
-      </div>
-    </div>
-    {% endif %}
+    {% endfor %}
   </body>
 </html>

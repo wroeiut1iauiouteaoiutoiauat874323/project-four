@@ -46,7 +46,5 @@ def grafik_svm(dr):
     plt.legend(title='Sentimen', loc='upper left')
     plt.tight_layout()
 
-    # Tampilkan plot
-    plt.show()
     # Simpan plot sebagai file gambar
-    plt.savefig('static/grafik_svm.png')
+    plt.savefig('static/grafik_svm.png', format='png')

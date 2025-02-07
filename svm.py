@@ -31,6 +31,7 @@ def svm_classifier(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
     # Simpan hasil ke file CSV
     data_clean.to_csv('sample_data/the_data_hasil_sentimen_SVM.csv', index=False)
     data_real.to_csv('sample_data/the_data_all_hasil_sentimen_SVM.csv', index=False)
+    jumlah_data_clean_svm = str(data_clean.shape[0])
 
     # K-Fold Cross Validation
     model = SVC(probability=True)
@@ -54,18 +55,7 @@ def svm_classifier(A_tfid, B, C_tfid, A_fit_tfid, data_clean, data_real):
         all_true_labels[test_index] = B_test
 
     overall_accuracy = accuracy_score(B_encoded, all_predictions)
-    print("Overall Accuracy with Average Predictions:", overall_accuracy)
+    cr = classification_report(all_true_labels, all_predictions)
+    cm = confusion_matrix(all_true_labels, all_predictions)
 
-    print("Overall Classification Report:")
-    print(classification_report(all_true_labels, all_predictions, target_names=label_encoder.classes_))
-    print("Overall Confusion Matrix:")
-    print(confusion_matrix(all_true_labels, all_predictions))
-
-    # Konversi kembali prediksi ke string label untuk disimpan
-    all_predictions_labels = label_encoder.inverse_transform(all_predictions)
-    data_clean['Label SVM Average'] = all_predictions_labels
-
-    # Simpan hasil dengan rata-rata prediksi ke CSV
-    data_clean.to_csv('sample_data/the_data_SVM_average.csv', index=False)
-
-    
+    return overall_accuracy, cr, cm, data_clean, data_real, jumlah_data_clean_svm
