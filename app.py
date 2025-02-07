@@ -9,6 +9,7 @@ from naive_bayes import naive_bayes
 from svm import svm_classifier
 from wordcloudnya import wordcloud_semua_nb, wordcloud_positif_nb, wordcloud_negatif_nb, wordcloud_semua_svm, wordcloud_positif_svm, wordcloud_negatif_svm
 from grafiknya import grafik_nb, grafik_svm
+from barplot import barplot_nb, barplot_svm
 import matplotlib.pyplot as plt
 import io
 import base64
@@ -50,6 +51,8 @@ def index():
         wordcloud_negatif_svm(data_real_svm)
         grafik_nb(data_real_nb)
         grafik_svm(data_real_svm)
+        barplot_nb(data_real_nb)
+        barplot_svm(data_real_svm)
 
         reviews_data.append({
             "review": 'cobaa',
@@ -62,7 +65,6 @@ def index():
             "cr_svm": cr_svm,
             "cm_svm": cm_svm
         })
-        # reviews_data.append({"review": review['content'], "sentiment": sentiment})
 
     return render_template('index.html', reviews_data=reviews_data)
 
