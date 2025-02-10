@@ -69,10 +69,10 @@
     <h2 class="text-center mt-5 mb-4">Hasil</h2>
     <div class="container">
       <div class="row justify-content-center">
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <h4 class="text-center mt-2 mb-4">Naive Bayes</h4>
+              <h5 class="text-center mt-2 mb-4">Naive Bayes</h5>
               <strong>Classification Report:</strong>
               <pre>{{ review.cr_nb }}</pre>
 
@@ -155,15 +155,13 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="row">
         <!-- svm linear -->
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <h4 class="text-center mt-2 mb-4">
+              <h5 class="text-center mt-2 mb-4">
                 Support Vector Machine Linear Kernel
-              </h4>
+              </h5>
               <strong>Classification Report:</strong>
               <pre>{{ review.cr_svm_linear }}</pre>
 
@@ -249,12 +247,12 @@
         <!-- end svm linear -->
 
         <!-- svm non linear -->
-        <div class="col-md-6">
+        <div class="col-md-4">
           <div class="card">
             <div class="card-body">
-              <h4 class="text-center mt-2 mb-4">
+              <h5 class="text-center mt-2 mb-4">
                 Support Vector Machine Non-Linear Kernel
-              </h4>
+              </h5>
               <strong>Classification Report:</strong>
               <pre>{{ review.cr_svm_nonlinear }}</pre>
 
