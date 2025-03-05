@@ -69,14 +69,10 @@
     <h2 class="text-center mt-5 mb-4">Hasil</h2>
     <div class="container-fluid">
       <div class="row justify-content-center">
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card">
             <div class="card-body">
               <h5 class="text-center mt-2 mb-4">Naive Bayes</h5>
-              <strong>Classification Report:</strong>
-              <pre>{{ review.cr_nb }}</pre>
-
-              <p class="mt-3"></p>
 
               <strong>Jumlah Data Training: </strong>{{
               review.jumlah_data_clean_nb }}
@@ -107,6 +103,11 @@
                   </tbody>
                 </table>
               </div>
+
+              <p class="mt-3"></p>
+
+              <strong>Classification Report:</strong>
+              <pre>{{ review.cr_nb }}</pre>
 
               <p class="mt-3"></p>
 
@@ -156,16 +157,12 @@
           </div>
         </div>
         <!-- svm linear -->
-        <div class="col-md-4">
+        <div class="col-md-6">
           <div class="card">
             <div class="card-body">
               <h5 class="text-center mt-2 mb-4">
                 Support Vector Machine Linear Kernel
               </h5>
-              <strong>Classification Report:</strong>
-              <pre>{{ review.cr_svm_linear }}</pre>
-
-              <p class="mt-3"></p>
 
               <strong>Jumlah Data Training: </strong>{{
               review.jumlah_data_clean_svm_linear }}
@@ -196,6 +193,11 @@
                   </tbody>
                 </table>
               </div>
+
+              <p class="mt-3"></p>
+
+              <strong>Classification Report:</strong>
+              <pre>{{ review.cr_svm_linear }}</pre>
 
               <p class="mt-3"></p>
 
@@ -247,7 +249,7 @@
         <!-- end svm linear -->
 
         <!-- svm non linear -->
-        <div class="col-md-4">
+        <!-- <div class="col-md-4">
           <div class="card">
             <div class="card-body">
               <h5 class="text-center mt-2 mb-4">
@@ -334,7 +336,7 @@
               />
             </div>
           </div>
-        </div>
+        </div> -->
         <!-- end svm non linear -->
       </div>
     </div>
